@@ -1,0 +1,63 @@
+    #include<bits/stdc++.h>
+    #define ll long long int
+    using namespace std;
+    vector<ll>ans;
+    void sieve()
+    {
+    	 ans.push_back(2);
+     
+        for (ll i = 3; i <= 32000; i+=2) {
+            bool isprime = true;
+            ll cap = sqrt(i) + 1;
+     
+            vector<ll>::iterator p;
+            for (p =ans.begin(); p !=ans.end(); p++) 
+    		{
+                if (*p >= cap) 
+    			break;
+                if (i % *p == 0)
+    			{
+                    isprime = false;
+                    break;
+                }
+            }
+            if (isprime) 
+    		ans.push_back(i);
+        }
+    }
+    int main(void)
+    {
+    	sieve();
+    	int t;
+    	cin>>t;
+    	ll start,end,s;
+    	ll m=sqrt(end);
+    	while(t-->0)
+    	{
+    		cin>>start>>end;
+    		if(start<2)
+    		start=2;
+    		set<ll>notprime;
+    		notprime.clear();
+    		for(ll i=0;i<ans.size();i++)
+    		{
+    			
+    			if(ans[i]>end)
+    			break;
+    			if(ans[i]>=start)
+    			s=ans[i]*2;
+    			else
+    			s=start+(ans[i]-start%ans[i])%ans[i];
+    			for(ll j=s;j<=end;j+=ans[i])
+    			{
+    				notprime.insert(j);
+    			}
+    		}
+    		for(ll i=start;i<=end;i++)
+    		{
+    			if (notprime.count(i) == 0) {
+                    cout << i << endl;
+                }
+            }
+    		}
+    } 
